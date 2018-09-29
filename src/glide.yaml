@@ -1,0 +1,9 @@
+package: azure-testing-exporter/src
+import:
+- package: github.com/docker/go-units
+- package: github.com/jessevdk/go-flags
+- package: github.com/prometheus/client_golang
+  subpackages:
+  - prometheus
+  - prometheus/promhttp
+- package: gopkg.in/yaml.v2

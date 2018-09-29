@@ -1,0 +1,45 @@
+version: v1
+
+metrics:
+  node_uname_info:
+    help: Node info
+    type: gauge
+    labels: [nodename]
+    items:
+    - value: 1
+      labels: {nodename: "SIMULATOR"}
+
+  node_filesystem_size_bytes:
+    help: Filesystem space available to non-root users in bytes.
+    type: gauge
+    labels: [device, fstype, mountpoint]
+    items:
+    - value: 3TB
+      labels: {device: "/dev/sda1", fstype: "ext4", mountpoint: "/"}
+    - value: 2TB
+      labels: {device: "/dev/sdb1", fstype: "ext4", mountpoint: "/"}
+
+  node_filesystem_free_bytes:
+    help: Filesystem free space in bytes.
+    type: gauge
+    labels: [device, fstype, mountpoint]
+    items:
+    - value: 100-500MB
+      labels: {device: "/dev/sda1", fstype: "ext4", mountpoint: "/"}
+    - value: 100-500MB
+      labels: {device: "/dev/sdb1", fstype: "ext4", mountpoint: "/"}
+
+  node_entropy_available_bits:
+    type: gauge
+    items:
+    - value: 100-500
+
+  node_memory_MemTotal_bytes:
+    type: gauge
+    items:
+    - value: 24GB
+
+  node_memory_Active_bytes:
+    type: gauge
+    items:
+    - value: 22GB-23GB
