@@ -1,39 +1,39 @@
 package main
 
 import (
-	"io/ioutil"
-	"os"
 	"fmt"
-	"net/http"
-	"gopkg.in/yaml.v2"
 	"github.com/jessevdk/go-flags"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
+	"net/http"
+	"os"
 	"time"
 )
 
 const (
-	Author  = "webdevops.io"
-	Version = "0.1.0"
+	Author                         = "webdevops.io"
+	Version                        = "0.1.0"
 	AZURE_RESOURCEGROUP_TAG_PREFIX = "tag_"
 )
 
 var (
-	argparser          *flags.Parser
-	args               []string
-	Logger             *DaemonLogger
-	ErrorLogger        *DaemonLogger
+	argparser   *flags.Parser
+	args        []string
+	Logger      *DaemonLogger
+	ErrorLogger *DaemonLogger
 )
 
 var opts struct {
 	// general settings
-	Verbose     []bool `       long:"verbose" short:"v"  env:"VERBOSE"       description:"Verbose mode"`
+	Verbose []bool `       long:"verbose" short:"v"  env:"VERBOSE"       description:"Verbose mode"`
 
 	// server settings
-	ServerBind  string `       long:"bind"               env:"SERVER_BIND"   description:"Server address"               default:":8080"`
-	ScrapeTime  time.Duration `long:"scrape-time"        env:"SCRAPE_TIME"   description:"Scrape time (time.duration)"  default:"5s"`
+	ServerBind string        `       long:"bind"               env:"SERVER_BIND"   description:"Server address"               default:":8080"`
+	ScrapeTime time.Duration `long:"scrape-time"        env:"SCRAPE_TIME"   description:"Scrape time (time.duration)"  default:"5s"`
 
-	ConfigurationFile  string `long:"config-file"        env:"CONFIG"        description:"Configuration file"           required:"true"`
-	configuration      Configuration
+	ConfigurationFile string `long:"config-file"        env:"CONFIG"        description:"Configuration file"           required:"false"`
+	configuration     Configuration
 }
 
 func main() {
@@ -73,6 +73,10 @@ func initArgparser() {
 			argparser.WriteHelp(os.Stdout)
 			os.Exit(1)
 		}
+	}
+
+	if opts.ConfigurationFile == "" {
+		opts.ConfigurationFile = "/app/config/node_exporter.yaml"
 	}
 
 	if _, err := os.Stat(opts.ConfigurationFile); os.IsNotExist(err) {

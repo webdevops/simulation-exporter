@@ -12,8 +12,8 @@ Configuration
 
 Normally no configuration is needed but can be customized using environment variables.
 
-| Environment variable              | DefaultValue                | Description                                                       |
-|-----------------------------------|-----------------------------|-------------------------------------------------------------------|
-| `SCRAPE_TIME`                     | `5s`                        | Time (time.Duration) between generations                          |
-| `SERVER_BIND`                     | `:8080`                     | IP/Port binding                                                   |
-| `CONFIGURATION_FILE`              | none                        | Configuration file (yaml)                                         |
+| Environment variable | DefaultValue                    | Description                              |
+|----------------------|---------------------------------|------------------------------------------|
+| `SCRAPE_TIME`        | `5s`                            | Time (time.Duration) between generations |
+| `SERVER_BIND`        | `:8080`                         | IP/Port binding                          |
+| `CONFIG`             | `/app/config/node_exporter.yml` | Configuration file (yaml)                |
